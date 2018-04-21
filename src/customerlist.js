@@ -8,6 +8,7 @@ export default class Customerlist extends Component {
 
     state = {
         customers: [],
+        keyword: '',
     };
 
     componentDidMount() {
@@ -26,10 +27,29 @@ export default class Customerlist extends Component {
             .catch(err => console.log(err))
     }
 
+    // search with keyword and update state
+    _searchCustomers = (e) => {
+        e.preventDefault();
+        console.log(this.state.keyword);
+
+        let newList = this.state.customers.filter(
+            data => data.firstname.toUpperCase() === this.state.keyword.toUpperCase()
+        );
+
+        console.log(newList);
+    }
+
+    _inputChanged = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
     render() {
         const columns = [{
-            Header: 'Customer List',
-            headerClassName: 'customer-list-header',
+            // Header: 'Customer List',
+            // headerClassName: 'customer-list-header',
+            Header: 'Name',
             columns: [
                 {
                     Header: 'First Name',
@@ -39,6 +59,11 @@ export default class Customerlist extends Component {
                     Header: 'Last Name',
                     accessor: 'lastname'
                 },
+            ],
+        },
+        {
+            Header: 'Address',
+            columns: [
                 {
                     Header: 'Street Address',
                     accessor: 'streetaddress'
@@ -51,6 +76,11 @@ export default class Customerlist extends Component {
                     Header: 'City',
                     accessor: 'city'
                 },
+            ],
+        },
+        {
+            Header: 'Contact info',
+            columns: [
                 {
                     Header: 'Email',
                     accessor: 'email'
@@ -58,21 +88,31 @@ export default class Customerlist extends Component {
                 {
                     Header: 'Phone',
                     accessor: 'phone'
-                }
+                },
             ]
-        }]
+        },
+    ]
 
         return (
-            <div className="Customerlist">
-                <ReactTable data={this.state.customers} columns={columns}
-                    className='-highlight -striped' filterable
-                    SubComponent={
-                        row => {
-                            return (
-                                <Traininglist link={this.state.customers[row.index].links[2].href} />
-                            )
-                        }
-                    } />
+            <div className="Container">
+                <div className="NavBar">
+                    <form>
+                        <input type='text' name='keyword' onChange={this._inputChanged} />
+                        <button type='button' onClick={this._searchCustomers}>Search</button>
+                    </form>
+                </div>
+
+                <div className="Customer-list">
+                    <ReactTable data={this.state.customers} columns={columns}
+                        className='-highlight -striped' // filterable // -filter option
+                        SubComponent={
+                            row => {
+                                return (
+                                    <Traininglist link={this.state.customers[row.index].links[2].href} />
+                                )
+                            }
+                        } />
+                </div>
             </div>
         );
     }

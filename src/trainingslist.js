@@ -32,7 +32,19 @@ export default class TrainingsList extends Component {
             columns: [
                 {
                     Header: 'Date',
-                    accessor: 'date'
+                    id: 'date',
+                    accessor: d => {
+                        let date = new Date(d.date);
+                        return date.getMonth() + "." + date.getDate() + "." + date.getFullYear();
+                    }
+                },
+                {
+                    Header: 'Time',
+                    id: 'time',
+                    accessor: d => {
+                        let time = new Date(d.date);
+                        return time.getHours() + ':' + time.getMinutes();
+                    }
                 },
                 {
                     Header: 'Duration',
@@ -46,14 +58,14 @@ export default class TrainingsList extends Component {
                     Header: 'Content',
                     accessor: 'content'
                 },
-                {
+/*                {
                     id: 'button',
                     sortable: false,
                     filterable: false,
                     width: 100,
                     accessor: '',
                     Cell: ({value}) => (<button className='btn btn-default btn-link' onClick='#'>Delete</button>)
-                },
+                }, */
             ]
         }]
 

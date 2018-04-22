@@ -9,6 +9,7 @@ export default class Customerlist extends Component {
     state = {
         customers: [],
         keyword: '',
+        option: '',
     };
 
     componentDidMount() {
@@ -30,18 +31,29 @@ export default class Customerlist extends Component {
     // search with keyword and update state
     _searchCustomers = (e) => {
         e.preventDefault();
-        console.log(this.state.keyword);
 
-        let newList = this.state.customers.filter(
-            data => data.firstname.toUpperCase() === this.state.keyword.toUpperCase()
-        );
-
-        console.log(newList);
+        // reset state if the keyword is empty or option is default
+        if (this.state.keyword === '' || this.state.option === '')
+            this._loadCustomers();
+        else {
+            let newList = this.state.customers.filter(
+                data => data[this.state.option].toUpperCase() === this.state.keyword.toUpperCase()
+            );
+            this.setState({
+                customers: newList
+            });
+        }
     }
 
     _inputChanged = (e) => {
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+    _optionChanged = (e) => {
+        this.setState({
+            option: e.target.value
         });
     }
 
@@ -91,14 +103,21 @@ export default class Customerlist extends Component {
                 },
             ]
         },
-    ]
+        ]
 
         return (
             <div className="Container">
                 <div className="NavBar">
                     <form>
-                        <input type='text' name='keyword' onChange={this._inputChanged} />
+                        <input type='text' name='keyword' placeholder='keyword' onChange={this._inputChanged} />
+                        <select id="search-option" name="search-option" onChange={this._optionChanged}>
+                            <option value="">Search By</option>
+                            <option value="firstname">First Name</option>
+                            <option value="lastname">Last Name</option>
+                            <option value="city">City</option>
+                        </select>
                         <button type='button' onClick={this._searchCustomers}>Search</button>
+                        <button type='button' onClick={this._loadCustomers}>Reset</button>
                     </form>
                 </div>
 

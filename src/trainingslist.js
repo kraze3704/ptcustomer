@@ -113,7 +113,6 @@ export default class TrainingsList extends Component {
             return (
                 <div className='Trainings-container'>
                     <div className='Trainings-bar'>
-                        {console.log(this.state.customers_trainings)}
                         <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
                     </div>
                     <h4>No trainings available</h4>
@@ -124,7 +123,6 @@ export default class TrainingsList extends Component {
             return (
                 <div className='Trainings-container'>
                     <div className='Trainings-bar'>
-                        {console.log(this.state.customers_trainings)}
                         <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
                     </div>
                     <div className="Trainings-list">

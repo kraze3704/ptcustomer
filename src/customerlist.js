@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import Traininglist from './trainingslist';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
+import Traininglist from './trainingslist';
+import AddCustomer from './addcustomer';
 
 export default class Customerlist extends Component {
 
@@ -57,6 +60,41 @@ export default class Customerlist extends Component {
         });
     }
 
+    // add customer
+    _addCustomer = (customer) => {
+        fetch('https://customerrest.herokuapp.com/api/customers',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(customer)
+            })
+            .then(re => this._loadCustomers())
+            .catch(er => console.log(er));
+    }
+
+    // Delete a customer by id-link
+    _onDelClick = (idLink) => {
+        confirmAlert({
+            title: '',
+            message: 'Are you sure you want to delete this?',
+            buttons: [
+                {
+                    label: 'OK',
+                    onClick: () => {
+                        fetch(idLink, { method: 'DELETE' })
+                            .then(res => this._loadCustomers())
+                            .catch(err => console.error(err))
+                    }
+                },
+                {
+                    label: 'CANCEL',
+                }
+            ]
+        })
+    }
+
     render() {
         const columns = [{
             // Header: 'Customer List',
@@ -103,22 +141,35 @@ export default class Customerlist extends Component {
                 },
             ]
         },
+        {
+            id: 'button',
+            sortable: false,
+            filterable: false,
+            width: 100,
+            accessor: 'links[0].href',
+            Cell: ({ value }) => (<button className="btn btn-default btn-link" onClick={() => { this._onDelClick(value) }}>Delete</button>)
+        },
         ]
 
         return (
             <div className="Container">
                 <div className="NavBar">
-                    <form>
-                        <input type='text' name='keyword' placeholder='keyword' onChange={this._inputChanged} />
-                        <select id="search-option" name="search-option" onChange={this._optionChanged}>
-                            <option value="">Search By</option>
-                            <option value="firstname">First Name</option>
-                            <option value="lastname">Last Name</option>
-                            <option value="city">City</option>
-                        </select>
-                        <button type='button' onClick={this._searchCustomers}>Search</button>
-                        <button type='button' onClick={this._loadCustomers}>Reset</button>
-                    </form>
+                    <div className="searchBar">
+                        <form>
+                            <input type='text' name='keyword' placeholder='keyword' onChange={this._inputChanged} />
+                            <select id="search-option" name="search-option" onChange={this._optionChanged}>
+                                <option value="">Search By</option>
+                                <option value="firstname">First Name</option>
+                                <option value="lastname">Last Name</option>
+                                <option value="city">City</option>
+                            </select>
+                            <button type='button' onClick={this._searchCustomers}>Search</button>
+                            <button type='button' onClick={this._loadCustomers}>Reset</button>
+                        </form>
+                    </div>
+                    <div className="dbBar">
+                        <AddCustomer _addCustomer={this._addCustomer} _loadCustomer={this._loadCustomers} />
+                    </div>
                 </div>
 
                 <div className="Customer-list">

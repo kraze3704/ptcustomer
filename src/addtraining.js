@@ -8,6 +8,8 @@ export default class AddCustomer extends React.Component {
             year: '',
             month: '',
             date: '',
+            hour: '',
+            minute: '',
             activity: '',
             duration: '',
         }
@@ -21,14 +23,14 @@ export default class AddCustomer extends React.Component {
 
     _submitTraining = (e) => {
         e.preventDefault();
-        let newDate = new Date(this.state.year, this.state.month, this.state.date)
+        let newDate = new Date(this.state.year, this.state.month, this.state.date, this.state.hour, this.state.minute);
         let newTraining = {
             date: newDate,
             activity: this.state.activity,
             duration: this.state.duration,
             customer: this.props.idlink,
         };
-        console.log(newTraining)
+        // console.log(newTraining);
         this.props._addTraining(newTraining);
         this.props._loadTrainings();
         this.refs.addDialogue.hide();
@@ -47,16 +49,16 @@ export default class AddCustomer extends React.Component {
                 <Skylight dialogueStyles={addDialogue} hideOnOverlayClicked ref="addDialogue">
                     <div className="card" style={{ "width": "95%" }}>
                         <div className="card-body">
-                            <h5 className='card-title'>Add new customer</h5>
+                            <h5 className='card-title'>Add new training</h5>
                             <form>
                                 <div className="form-group">
-                                    <input type="text" placeholder="Year" className="form-control" name="year" onChange={this._handleChange} />
+                                    <input type="text" placeholder="Month" className="form-control-time" name="month" onChange={this._handleChange} />
+                                    <input type="text" placeholder="Date" className="form-control-time" name="date" onChange={this._handleChange} />
+                                    <input type="text" placeholder="Year" className="form-control-time" name="year" onChange={this._handleChange} />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" placeholder="Month" className="form-control" name="month" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Date" className="form-control" name="date" onChange={this._handleChange} />
+                                    <input type="text" placeholder="Hour" className="form-control-time" name="hour" onChange={this._handleChange} />
+                                    <input type="text" placeholder="Minute" className="form-control-time" name="minute" onChange={this._handleChange} />
                                 </div>
                                 <div className="form-group">
                                     <input type="text" placeholder="Activity" className="form-control" name="activity" onChange={this._handleChange} />

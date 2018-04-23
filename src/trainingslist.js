@@ -13,7 +13,7 @@ export default class TrainingsList extends Component {
         customers_trainings: [],
     };
 
-    componentDidMount() {
+    componentWillMount() {
         this._customerTrainings(this.props.link);
     }
 
@@ -64,7 +64,6 @@ export default class TrainingsList extends Component {
     }
 
     render() {
-
         const columns = [{
             columns: [
                 {
@@ -102,17 +101,39 @@ export default class TrainingsList extends Component {
             ]
         }]
 
-        return (
-            <div className='Trainings-container'>
-                <div className='Trainings-bar'>
-                    <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+        // loading screen
+        if (this.state.customers_trainings.length < 1)
+            return (
+                <div className='Trainings-container'>
+                    <h2>Loading</h2>
                 </div>
-                <div className="Trainings-list">
-                    <ReactTable data={this.state.customers_trainings} columns={columns}
-                        defaultPageSize={5}
-                    />
+            )
+        // checks for training data, if there are none display different page
+        else if (this.state.customers_trainings[0].rel === null)
+            return (
+                <div className='Trainings-container'>
+                    <div className='Trainings-bar'>
+                        {console.log(this.state.customers_trainings)}
+                        <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                    </div>
+                    <h4>No trainings available</h4>
                 </div>
-            </div>
-        );
+            )
+        // display training data for the customer
+        else {
+            return (
+                <div className='Trainings-container'>
+                    <div className='Trainings-bar'>
+                        {console.log(this.state.customers_trainings)}
+                        <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                    </div>
+                    <div className="Trainings-list">
+                        <ReactTable data={this.state.customers_trainings} columns={columns}
+                            defaultPageSize={5}
+                        />
+                    </div>
+                </div>
+            );
+        }
     }
 }

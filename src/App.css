@@ -16,3 +16,7 @@
 .customer-list-header {
   font-size: 2em;
 }
+
+.form-control-time {
+  width: 4em;
+}

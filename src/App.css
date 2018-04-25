@@ -17,6 +17,35 @@
   font-size: 2em;
 }
 
-.form-control-time {
-  width: 4em;
+
+
+.form_group {
+  display: flex;
+  justify-content: center;
+}
+.form_input {
+  flex-basis: 25%;
+}
+
+div.Container {
+  display: flex;
+  flex-direction: column;
+}
+
+div.popup_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.dbBar {
+  float: left;
+}
+
+div.SearchBar {
+  float: right;
+}
+
+div.Trainings-bar {
+  float: left;
 }

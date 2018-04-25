@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+
 import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import Traininglist from './trainingslist';
 import AddCustomer from './addcustomer';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 export default class Customerlist extends Component {
 
@@ -51,12 +56,6 @@ export default class Customerlist extends Component {
     _inputChanged = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        });
-    }
-
-    _optionChanged = (e) => {
-        this.setState({
-            option: e.target.value
         });
     }
 
@@ -147,28 +146,28 @@ export default class Customerlist extends Component {
             filterable: false,
             width: 100,
             accessor: 'links[0].href',
-            Cell: ({ value }) => (<button className="btn btn-default btn-link" onClick={() => { this._onDelClick(value) }}>Delete</button>)
+            Cell: ({ value }) => (<RaisedButton onClick={() => { this._onDelClick(value) }} label='Delete' default={true}/>)
         },
-        ]
+        ];
 
         return (
             <div className="Container">
                 <div className="NavBar">
-                    <div className="searchBar">
+                    <div className="dbBar">
+                        <AddCustomer _addCustomer={this._addCustomer} _loadCustomer={this._loadCustomers} />
+                    </div>
+                    <div className="SearchBar">
                         <form>
-                            <input type='text' name='keyword' placeholder='keyword' onChange={this._inputChanged} />
-                            <select id="search-option" name="search-option" onChange={this._optionChanged}>
+                            <TextField name='keyword' hintText='keyword' onChange={this._inputChanged} value={this.state.keyword} />
+                            <select name="option" value={this.state.option} onChange={this._inputChanged}>
                                 <option value="">Search By</option>
                                 <option value="firstname">First Name</option>
                                 <option value="lastname">Last Name</option>
                                 <option value="city">City</option>
                             </select>
-                            <button type='button' onClick={this._searchCustomers}>Search</button>
-                            <button type='button' onClick={this._loadCustomers}>Reset</button>
+                            <RaisedButton onClick={this._searchCustomers} label='Search' primary={true} />
+                            <RaisedButton onClick={this._loadCustomers} label='Reset' primary={true} />
                         </form>
-                    </div>
-                    <div className="dbBar">
-                        <AddCustomer _addCustomer={this._addCustomer} _loadCustomer={this._loadCustomers} />
                     </div>
                 </div>
 

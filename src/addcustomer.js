@@ -1,5 +1,10 @@
 import React from 'react';
+
 import Skylight from 'react-skylight';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
 
 export default class AddCustomer extends React.Component {
     constructor(props) {
@@ -49,42 +54,23 @@ export default class AddCustomer extends React.Component {
         return (
             <div>
                 <Skylight dialogueStyles={addDialogue} hideOnOverlayClicked ref="addDialogue">
-                    <div className="card" style={{ "width": "95%" }}>
-                        <div className="card-body">
-                            <h5 className='card-title'>Add new customer</h5>
-                            <form>
-                                <div className="form-group">
-                                    <input type="text" placeholder="First Name" className="form-control" name="firstname" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Last Name" className="form-control" name="lastname" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Street Address" className="form-control" name="streetaddress" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="PostCode" className="form-control" name="postcode" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="City" className="form-control" name="city" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Email" className="form-control" name="email" onChange={this._handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <input type="text" placeholder="Phone" className="form-control" name="phone" onChange={this._handleChange} />
-                                </div>
-
-                                <div className="form-group">
-                                    <button className="btn btn-primary" onClick={this._submitCustomer}>Save</button>
-                                </div>
-                            </form>
-                        </div>
+                    <div className="popup_Container">
+                        <h2 className='popup_title'>Add new customer</h2>
+                        <Divider />
+                        <TextField name='firstname' hintText='First Name' onChange={this._handleChange} value={this.state.firstname} />
+                        <TextField name='lastname' hintText='Last Name' onChange={this._handleChange} value={this.state.lastname} />
+                        <TextField name='streetaddress' hintText='Street Address' onChange={this._handleChange} value={this.state.streetaddress} />
+                        <TextField name='postcode' hintText='Post Code' onChange={this._handleChange} value={this.state.postcode} />
+                        <TextField name='city' hintText='City' onChange={this._handleChange} value={this.state.city} />
+                        <TextField name='email' hintText='Email' onChange={this._handleChange} value={this.state.email} />
+                        <TextField name='phone' hintText='Phone' onChange={this._handleChange} value={this.state.phone} />
+                        <br />
+                        <RaisedButton onClick={this._submitCustomer} label='Save' primary={true} />
                     </div>
                 </Skylight>
 
                 <div className="col-md-2">
-                    <button style={{ 'margin': '10px' }} className='btn btn-primary' onClick={() => this.refs.addDialogue.show()}>Add Customer</button>
+                    <RaisedButton onClick={() => this.refs.addDialogue.show()} primary={true} label='Add Customer' />
                 </div>
             </div>
         );

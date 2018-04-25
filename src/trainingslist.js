@@ -4,6 +4,8 @@ import 'react-table/react-table.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
+import RaisedButton from 'material-ui/RaisedButton';
+
 import Addtraining from './addtraining';
 
 
@@ -96,7 +98,7 @@ export default class TrainingsList extends Component {
                     filterable: false,
                     width: 100,
                     accessor: 'links[0].href',
-                    Cell: ({ value }) => (<button className='btn btn-default btn-link' onClick={() => this._delTraining(value)}>Delete</button>)
+                    Cell: ({ value }) => (<RaisedButton onClick={() => this._delTraining(value)} label='Delete' default={true} />)
                 },
             ]
         }]
@@ -104,16 +106,18 @@ export default class TrainingsList extends Component {
         // loading screen
         if (this.state.customers_trainings.length < 1)
             return (
-                <div className='Trainings-container'>
+                <div className='Container'>
                     <h2>Loading</h2>
                 </div>
             )
         // checks for training data, if there are none display different page
         else if (this.state.customers_trainings[0].rel === null)
             return (
-                <div className='Trainings-container'>
-                    <div className='Trainings-bar'>
-                        <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                <div className='Container'>
+                    <div className='NavBar'>
+                        <div className='dbBar'>
+                            <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                        </div>
                     </div>
                     <h4>No trainings available</h4>
                 </div>
@@ -121,9 +125,11 @@ export default class TrainingsList extends Component {
         // display training data for the customer
         else {
             return (
-                <div className='Trainings-container'>
-                    <div className='Trainings-bar'>
-                        <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                <div className='Container'>
+                    <div className='NavBar'>
+                        <div className='dbBar'>
+                            <Addtraining _addTraining={this._addTraining} _loadTrainings={() => this._customerTrainings(this.props.link)} idlink={this.props.link} />
+                        </div>
                     </div>
                     <div className="Trainings-list">
                         <ReactTable data={this.state.customers_trainings} columns={columns}

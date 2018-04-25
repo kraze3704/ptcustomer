@@ -50,31 +50,32 @@ export default class AddCustomer extends React.Component {
     };
 
     render() {
-        const addDialogue = {
-            width: '70%',
-            height: '450px',
-            marginTop: '-300px',
+        const trainingDialog = {
+            width: '300px',
+            height: '200px',
+            marginTop: '-30%',
             marginLeft: '-35%',
         }
 
         return (
             <div>
-                <Skylight dialogueStyles={addDialogue} hideOnOverlayClicked ref="addDialogue">
+                <Skylight dialogStyles={trainingDialog} hideOnOverlayClicked ref="trainingDialog">
                     <div className='popup_Container'>
-                        <h2 className='popup_title'>Add new training</h2>
+                        <h4 className='popup_title'>Add new training</h4>
                         <DatePicker hintText='Select a date' onChange={this._dateChange} />
                         <div className='form_group'>
                             <TextField className='form_input' name='hour' hintText="Hour" onChange={this._handleChange} value={this.state.hour} />
                             <TextField className='form_input' name='minute' hintText="Min" onChange={this._handleChange} value={this.state.minute} />
                         </div>
-                        <TextField name='activity' hintText='Activity' onChange={this._handleChange} value={this.state.activity} />
                         <TextField name='duration' hintText='Duration' onChange={this._handleChange} value={this.state.duration} />
+                        <TextField name='activity' hintText='Activity' onChange={this._handleChange} value={this.state.activity} />
+                        <br />
                         <RaisedButton onClick={this._submitTraining} label='Save' primary={true} />
                     </div>
                 </Skylight>
-
+              
                 <div>
-                    <RaisedButton onClick={() => this.refs.addDialogue.show()} label='Add Training' primary={true} />
+                    <RaisedButton onClick={() => this.refs.trainingDialog.show()} label='Add Training' primary={true} />
                 </div>
             </div>
         );

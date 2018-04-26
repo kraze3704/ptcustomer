@@ -46,7 +46,7 @@ export default class AddCustomer extends React.Component {
         const customerDialog = {
             width: '300px',
             height: '500px',
-            marginTop: '-30%',
+            marginTop: '-20%',
             marginLeft: '-35%',
         }
 

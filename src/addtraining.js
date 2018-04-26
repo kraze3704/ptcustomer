@@ -53,7 +53,7 @@ export default class AddCustomer extends React.Component {
         const trainingDialog = {
             width: '300px',
             height: '200px',
-            marginTop: '-30%',
+            marginTop: '-20%',
             marginLeft: '-35%',
         }
 

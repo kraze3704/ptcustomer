@@ -4,6 +4,7 @@ import './App.css';
 import CustomerList from './customerlist';
 import NavBar from './navbar';
 import Login from './login';
+import Calendar from './calendar';
 import { firebaseAuth } from './config';
 
 import { BrowserRouter, Switch, Route, Redirect, } from 'react-router-dom';
@@ -31,7 +32,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(firebaseAuth);
+    // console.log(firebaseAuth);
     firebaseAuth.onAuthStateChanged((user) => {
       if (user && user.emailVerified) {
         this.setState({ user: user, isAuthenticated: true });
@@ -53,9 +54,10 @@ class App extends Component {
             <NavBar isAuthenticated={this.state.isAuthenticated} />
             <Switch>
               <Route exact path='/' render={() => <h1> Home Page </h1>} />
-              <Route exact path='/login' render={() => <Login />} />
+              <Route path='/login' render={() => <Login />} />
               <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/list" component={() => <CustomerList />} />
-              <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/calendar" component={() => <h1>Calendar Page</h1>} />
+              <Route path='/calendar' render={() => <Calendar />} />
+              {/* <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/calendar" component={() => <Calendar />} /> */}
               <Route render={() => <h1 style={{ 'color': 'red' }}>Page Not Found </h1>} />
             </Switch>
           </div>

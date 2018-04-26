@@ -46,9 +46,6 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <div className='App-header'>
-          <h2 className='App-title'> Customer and Trainings </h2>
-        </div>
         <BrowserRouter>
           <div>
             <NavBar isAuthenticated={this.state.isAuthenticated} />

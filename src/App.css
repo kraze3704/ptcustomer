@@ -49,3 +49,7 @@ div.SearchBar {
 div.Trainings-bar {
   float: left;
 }
+
+.Calendar_Container {
+  height: 750px;
+}

@@ -32,11 +32,9 @@ export default class NavBar extends Component {
                         <li className='nav-item'>
                             <Link className='nav-link' to='/calendar'>Calendar</Link>
                         </li>
-                        <li className='nav-item'>
-                            {logLink}
-                        </li>
                     </ul>
                 </div>
+                <div style={{ float: 'right', }}>{logLink}</div>
             </nav>
         );
     };
